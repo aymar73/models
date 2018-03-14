@@ -200,7 +200,7 @@ def get_synth_input_fn():
 class ImagenetModel(resnet.Model):
 
   def __init__(self, resnet_size, data_format=None, num_classes=_NUM_CLASSES,
-    version=resnet.DEFAULT_VERSION):
+    version=resnet.DEFAULT_VERSION, use_fp16=False):
     """These are the parameters that work for Imagenet data.
 
     Args:
@@ -236,6 +236,7 @@ class ImagenetModel(resnet.Model):
         block_strides=[1, 2, 2, 2],
         final_size=final_size,
         version=version,
+        use_fp16=use_fp16,
         data_format=data_format)
 
 
@@ -276,9 +277,10 @@ def imagenet_model_fn(features, labels, mode, params):
                                 momentum=0.9,
                                 data_format=params['data_format'],
                                 version=params['version'],
+                                use_fp16=params["use_fp16"],
+                                fp16_loss_scale=params["fp16_loss_scale"],
                                 loss_filter_fn=None,
                                 multi_gpu=params['multi_gpu'])
-
 
 def main(unused_argv):
   input_function = FLAGS.use_synthetic_data and get_synth_input_fn() or input_fn
