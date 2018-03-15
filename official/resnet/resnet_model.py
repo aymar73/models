@@ -98,7 +98,7 @@ def conv2d_fixed_padding(inputs, filters, kernel_size, strides, data_format):
 # ResNet block definitions.
 ################################################################################
 def _building_block_v1(inputs, filters, training, projection_shortcut, strides,
-    data_format):
+                       data_format):
   """
   Convolution then batch normalization then ReLU as described by:
     Deep Residual Learning for Image Recognition
@@ -144,7 +144,7 @@ def _building_block_v1(inputs, filters, training, projection_shortcut, strides,
 
 
 def _building_block_v2(inputs, filters, training, projection_shortcut, strides,
-    data_format):
+                       data_format):
   """
   Batch normalization then ReLu then convolution as described by:
     Identity Mappings in Deep Residual Networks
@@ -189,7 +189,7 @@ def _building_block_v2(inputs, filters, training, projection_shortcut, strides,
 
 
 def _bottleneck_block_v1(inputs, filters, training, projection_shortcut,
-    strides, data_format):
+                         strides, data_format):
   """
   Similar to _building_block_v1(), except using the "bottleneck" blocks
   described in:
@@ -228,7 +228,7 @@ def _bottleneck_block_v1(inputs, filters, training, projection_shortcut,
 
 
 def _bottleneck_block_v2(inputs, filters, training, projection_shortcut,
-    strides, data_format):
+                         strides, data_format):
   """
   Similar to _building_block_v2(), except using the "bottleneck" blocks
   described in:
@@ -272,7 +272,7 @@ def _bottleneck_block_v2(inputs, filters, training, projection_shortcut,
 
 
 def block_layer(inputs, filters, bottleneck, block_fn, blocks, strides,
-    training, name, data_format):
+                training, name, data_format):
   """Creates one layer of blocks for the ResNet model.
 
   Args:
@@ -317,10 +317,10 @@ class Model(object):
   """
 
   def __init__(self, resnet_size, bottleneck, num_classes, num_filters,
-      kernel_size,
-      conv_stride, first_pool_size, first_pool_stride,
-      second_pool_size, second_pool_stride, block_sizes, block_strides,
-      final_size, version=DEFAULT_VERSION, data_format=None):
+               kernel_size,
+               conv_stride, first_pool_size, first_pool_stride,
+               second_pool_size, second_pool_stride, block_sizes, block_strides,
+               final_size, version=DEFAULT_VERSION, data_format=None):
     """Creates a model for classifying an image.
 
     Args:
@@ -353,7 +353,7 @@ class Model(object):
 
     if not data_format:
       data_format = (
-        'channels_first' if tf.test.is_built_with_cuda() else 'channels_last')
+          'channels_first' if tf.test.is_built_with_cuda() else 'channels_last')
 
     self.resnet_version = version
     if version not in (1, 2):
@@ -435,3 +435,5 @@ class Model(object):
     inputs = tf.layers.dense(inputs=inputs, units=self.num_classes)
     inputs = tf.identity(inputs, 'final_dense')
     return inputs
+
+
