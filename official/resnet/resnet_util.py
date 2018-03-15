@@ -13,6 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 """Contains utility and supporting functions for ResNet.
+
+  This module contains ResNet code which does not directly build layers. This
+includes dataset management, hyperparameter and optimizer code, and argument
+parsing. Code for defining the ResNet layers can be found in resnet_model.py.
 """
 
 from __future__ import absolute_import
